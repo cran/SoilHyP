@@ -54,7 +54,7 @@ SEM <- function(suc.up, suc.low, weight = NULL, t, ths = NULL, r = 3.6, L = 6, z
     suc.low <- suc.low *-1
     }
 
-  if (sum(suc.up) < sum(suc.low)) {
+  if (sum(suc.up, na.rm = TRUE) < sum(suc.low, na.rm = TRUE)) {
     temp <- suc.up
     suc.up <- suc.low
     suc.low <- temp
@@ -69,6 +69,7 @@ SEM <- function(suc.up, suc.low, weight = NULL, t, ths = NULL, r = 3.6, L = 6, z
 
   # calculate hydraulic conductivity (see Wind (1966))
   deltaV <- diff(weight)
+
     # calc flux
     q      <- 0.5*(deltaV/(t.sec*A)) # cm/sec
     deltaH <- 0.5* (
@@ -82,7 +83,8 @@ SEM <- function(suc.up, suc.low, weight = NULL, t, ths = NULL, r = 3.6, L = 6, z
   Ki <- -q/gradH
   # calculate th if ths is provided
   if(!is.null(ths)) {
-    th <- ((vol*ths) + cumsum(deltaV))/vol
+    cum.deltaV <- cumsum(deltaV)
+    th <- ((vol*ths) + cum.deltaV)/vol
   }
 
   # get 'arithmetic', 'geometric' and 'weighted' mean of tensiometer readings
@@ -116,7 +118,7 @@ SEM <- function(suc.up, suc.low, weight = NULL, t, ths = NULL, r = 3.6, L = 6, z
 
 if (!is.null(ths)) {
 
-  if( any(th < 0 )) {
+  if( any(th < 0 , na.rm = T)) {
     warning('Negative water contents! Check ths!!!')
   }
   obj <- data.frame(Ku = Ki, th = th, suc = suc)

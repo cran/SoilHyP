@@ -189,9 +189,9 @@ fitSHP <- function(obs = list(th = NULL, K = NULL),
     if (print.info == TRUE) {
     print('Lower parameter boundary input (lower) is missing and set to:')
     print(lower)
+    }
     if (any(!is.na(log))) {
       lower[names(lower) %in% log] <- log10(lower[names(lower) %in% log])
-    }
     }
   }
   if(is.null(upper)) {
@@ -208,10 +208,10 @@ fitSHP <- function(obs = list(th = NULL, K = NULL),
     }
     if (modality == 'bi') {
       if (fit == 'swc')   {
-        upper = c(ths = 1, thr = 0.4, alfa = 5, n = 10, w2 = 0.49, alfa2 = 1, n2 = 10)
+        upper = c(ths = 1, thr = 0.4, alfa = 0.5, n = 10, w2 = 0.49, alfa2 = 5, n2 = 10)
       }
       if (fit == 'both' | fit == 'ku')   {
-      upper = c(ths = 1, thr = 0.4, alfa = 5, n = 10, ks = 5000, tau = 5, w2 = 0.49, alfa2 = 1, n2 = 10)
+      upper = c(ths = 1, thr = 0.4, alfa = 0.5, n = 10, ks = 5000, tau = 5, w2 = 0.49, alfa2 = 5, n2 = 10)
       if (FUN.shp == 'pdi') {
         upper <- c(upper, omega = 0.1)
         }
@@ -221,9 +221,9 @@ fitSHP <- function(obs = list(th = NULL, K = NULL),
     if (print.info == TRUE) {
     print('Upper parameter boundary input (upper) is missing and set to:')
     print(upper)
+    }
     if (any(!is.na(log))) {
       upper[names(upper) %in% log] <- log10(upper[names(upper) %in% log])
-    }
     }
   }
 
@@ -323,7 +323,7 @@ if (any(!is.na(log))) {
   log.par <- names(ans$par) %in% log
   ans$par[log.par] <- 10^ans$par[log.par]
 }
-ans$par <- c(ans$par, unlist(par.shp))
+ans$par <- as.list(c(ans$par, unlist(par.shp)))
 }
 
 
@@ -392,7 +392,7 @@ ans$par <- c(ans$par, unlist(par.shp))
    }
 
    ans <- ans1$control
-   ans$par <- c(ans1$par, ans2$par, unlist(par.shp))
+   ans$par <- as.list(c(ans1$par, ans2$par, unlist(par.shp)))
     }
 
 # output-------------------------------------------------------------------------------

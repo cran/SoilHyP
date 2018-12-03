@@ -117,7 +117,6 @@ SEM <- function(suc.up, suc.low, weight = NULL, t, ths = NULL, r = 3.6, L = 6, z
   }
 
 if (!is.null(ths)) {
-
   if( any(th < 0 , na.rm = T)) {
     warning('Negative water contents! Check ths!!!')
   }

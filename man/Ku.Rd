@@ -4,7 +4,8 @@
 \alias{Ku}
 \title{Unsaturated hydraulic conductivity}
 \usage{
-Ku(suc, FUN.shp = "vG", par.shp, modality = "uni", suc.negativ = TRUE)
+Ku(suc, FUN.shp = "vG", par.shp, modality = "uni",
+  suc.negativ = TRUE)
 }
 \arguments{
 \item{suc}{Suction/pressure heads. Negative if suc.negativ = TRUE}

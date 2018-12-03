@@ -49,8 +49,12 @@ Sad <- function(suc, par.shp , modality = c('uni'), suc.negativ = TRUE) {
     stopifnot(any(names(par.shp) == 'alfa2'))
     stopifnot(any(names(par.shp) == 'n2'))
 
-    if(par.shp$alfa > par.shp$alfa2) temp <- par.shp$n
-    if(par.shp$alfa <= par.shp$alfa2) temp <- par.shp$n2
+    temp <- rep(NA, length(par.shp$alfa))
+    #if(par.shp$alfa > par.shp$alfa2) temp <- par.shp$n
+    #if(par.shp$alfa <= par.shp$alfa2) temp <- par.shp$n2
+    temp[par.shp$alfa > par.shp$alfa2]  <- par.shp$n[par.shp$alfa > par.shp$alfa2]
+    temp[par.shp$alfa <= par.shp$alfa2] <- par.shp$n2[par.shp$alfa <= par.shp$alfa2]
+
     alfa.max <- ifelse(par.shp$alfa > par.shp$alfa2, par.shp$alfa, par.shp$alfa2)
   }
 

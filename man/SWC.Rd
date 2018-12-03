@@ -27,7 +27,7 @@ Calculates the volumetric soil water content for a corresponding suction/pressur
 \details{
 \describe{\item{FUN.shp:}{
 vG: van Genuchten (uni or bimodal) (vGM is working aswell) \cr
-PDI: Peters-Durner-Iden with van Genuchtens saturation function (uni or bimodal)}}
+PDI: Peters-Durner-Iden with saturation function van Genuchten (uni or bimodal)}}
 \describe{\item{par.shp (vG and PDI):}{
 ths [-]: saturated water content \cr
 thr [-]: residual water content\cr

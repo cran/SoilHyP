@@ -3,6 +3,7 @@
 S3method(plot,fitSHP)
 S3method(predict,fitSHP)
 export(AIC_HY)
+export(BIC_HY)
 export(Kcap)
 export(Kfilm)
 export(Ku)

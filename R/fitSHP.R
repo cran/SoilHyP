@@ -18,9 +18,9 @@
 #' @param print.info print information about default values for par, lower, and upper if missing or fitting accuracy (TRUE or FALSE)
 #' @details
 #' \describe{\item{weigthing:\cr}{
-#' var: th and K are weighted in the objective fuction by the measurement varianz  \cr
+#' var: th and K are weighted in the objective fuction by the measurement variance  \cr
 #' norm: th and K are normed in objective fuction\cr
-#' 2step: the paramter for th are fitted first and the remaining parameter for K afterwards}}
+#' 2step: the parameter for th are fitted first and the remaining parameter for K afterwards}}
 #' \describe{\item{log:\cr}{
 #' The use of log is suggested for paramter 'alfa', 'n' and 'ks' for modality == 'uni'. For modality 'bi' additional 'alfa2' and 'n2' and for Fun.shp == 'pdi' additional 'omega'.
 #' Parameter in output ($par) are not returned logarithmized. \cr
@@ -158,9 +158,6 @@ fitSHP <- function(obs = list(th = NULL, K = NULL),
     print('Initial parameter input (par) is missing and set to default:')
     print(par)
     }
-    if (any(!is.na(log))) {
-      par[names(par) %in% log] <- log10(par[names(par) %in% log])
-    }
   }
   # Add parameter boundaries if missing
   if(is.null(lower)) {
@@ -169,7 +166,7 @@ fitSHP <- function(obs = list(th = NULL, K = NULL),
         lower = c(ths = 0.4, thr = 0, alfa = 0.001, n = 1.01)
         }
       if (fit == 'both' | fit == 'ku')   {
-      lower = c(ths = 0.4, thr = 0, alfa = 0.001, n = 1.01, ks = 0.0001, tau = -1)
+      lower = c(ths = 0.4, thr = 0, alfa = 0.001, n = 1.01, ks = 0.0001, tau = -2)
       if (FUN.shp == 'pdi') {
         lower <- c(lower, omega = 0.000000000001)
         }
@@ -177,10 +174,10 @@ fitSHP <- function(obs = list(th = NULL, K = NULL),
     }
     if (modality == 'bi') {
       if (fit == 'swc')   {
-        lower = c(ths = 0.3, thr = 0, alfa = 0.0001, n = 1.01, w2 = 0, alfa2 = 0.0001, n2 = 1.01)
+        lower = c(ths = 0.3, thr = 0, alfa = 0.001, n = 1.01, w2 = 0, alfa2 = 0.01, n2 = 1.01)
       }
       if (fit == 'both' | fit == 'ku')   {
-      lower = c(ths = 0.3, thr = 0, alfa = 0.0001, n = 1.01, ks = 0.0001, tau = -1, w2 = 0, alfa2 = 0.0001, n2 = 1.01)
+      lower = c(ths = 0.3, thr = 0, alfa = 0.001, n = 1.01, ks = 0.0001, tau = -2, w2 = 0, alfa2 = 0.01, n2 = 1.01)
       if (FUN.shp == 'pdi') {
         lower <- c(lower, omega = 0.000000000001)
       }
@@ -190,10 +187,8 @@ fitSHP <- function(obs = list(th = NULL, K = NULL),
     print('Lower parameter boundary input (lower) is missing and set to:')
     print(lower)
     }
-    if (any(!is.na(log))) {
-      lower[names(lower) %in% log] <- log10(lower[names(lower) %in% log])
-    }
   }
+  # lower        = c(ths = 0.3, thr = 0, alfa = 1e-04, n = 1.01, ks = 1e-04, tau = -2, w2 = 0, alfa2 = 1e-04, n2 = 1.01)
   if(is.null(upper)) {
     if (modality == 'uni') {
       if (fit == 'swc')   {
@@ -211,7 +206,7 @@ fitSHP <- function(obs = list(th = NULL, K = NULL),
         upper = c(ths = 1, thr = 0.4, alfa = 0.5, n = 10, w2 = 0.49, alfa2 = 5, n2 = 10)
       }
       if (fit == 'both' | fit == 'ku')   {
-      upper = c(ths = 1, thr = 0.4, alfa = 0.5, n = 10, ks = 5000, tau = 5, w2 = 0.49, alfa2 = 5, n2 = 10)
+      upper = c(ths = 1, thr = 0.4, alfa = 0.5, n = 10, ks = 5000, tau = 10, w2 = 0.49, alfa2 = 5, n2 = 10)
       if (FUN.shp == 'pdi') {
         upper <- c(upper, omega = 0.1)
         }
@@ -221,9 +216,6 @@ fitSHP <- function(obs = list(th = NULL, K = NULL),
     if (print.info == TRUE) {
     print('Upper parameter boundary input (upper) is missing and set to:')
     print(upper)
-    }
-    if (any(!is.na(log))) {
-      upper[names(upper) %in% log] <- log10(upper[names(upper) %in% log])
     }
   }
 
@@ -241,6 +233,13 @@ fitSHP <- function(obs = list(th = NULL, K = NULL),
   print('For optimization logarithmized parameter:')
   print(log)
   }
+  #
+  # logarithmize parameter
+  if (any(!is.na(log))) {
+    lower[names(lower) %in% log] <- log10(lower[names(lower) %in% log])
+    upper[names(upper) %in% log] <- log10(upper[names(upper) %in% log])
+    par[names(par) %in% log] <- log10(par[names(par) %in% log])
+    }
   if(fit == 'ku' | fit == 'swc') { weighting <- 'none'}
   # x <- par
 
@@ -258,7 +257,6 @@ fitSHP <- function(obs = list(th = NULL, K = NULL),
     th <- SWC(suc$th, par.shp = par.shp, FUN.shp = FUN.shp, suc.negativ = suc.negativ, modality = modality)
   }
     if (integral == TRUE) {
-
       suc.lb <- suc$th + (L/2) # suction lower boundary
       suc.ub <- suc$th - (L/2) # suction upper boundary
       th <- mapply(function(x, y, L) {
@@ -325,7 +323,6 @@ if (any(!is.na(log))) {
 }
 ans$par <- as.list(c(ans$par, unlist(par.shp)))
 }
-
 
   # 2-Step weighting-------------------------------------------------------------------------------
   if (fit == 'both' & weighting == '2step' ) {

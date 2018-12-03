@@ -4,11 +4,12 @@
 \alias{fitSHP}
 \title{Fit soil hydraulic properties}
 \usage{
-fitSHP(obs = list(th = NULL, K = NULL), suc = list(th = NULL, K = NULL),
-  par = NULL, lower = NULL, upper = NULL, FUN.shp = "vg",
-  modality = "uni", par.shp = NULL, fit = "both", weighting = "var",
-  log = c("alfa", "n", "ks"), control = list(ncomplex = 15, reltol = 1e-07,
-  tolsteps = 7), suc.negativ = TRUE, integral = FALSE, L = NULL,
+fitSHP(obs = list(th = NULL, K = NULL), suc = list(th = NULL, K =
+  NULL), par = NULL, lower = NULL, upper = NULL, FUN.shp = "vg",
+  modality = "uni", par.shp = NULL, fit = "both",
+  weighting = "var", log = c("alfa", "n", "ks"),
+  control = list(ncomplex = 15, reltol = 1e-07, tolsteps = 7),
+  suc.negativ = TRUE, integral = FALSE, L = NULL,
   print.info = TRUE)
 }
 \arguments{
@@ -52,9 +53,9 @@ Estimate parameter for soil water retention (SWC) and/or unsaturated hydraulic c
 }
 \details{
 \describe{\item{weigthing:\cr}{
-var: th and K are weighted in the objective fuction by the measurement varianz  \cr
+var: th and K are weighted in the objective fuction by the measurement variance  \cr
 norm: th and K are normed in objective fuction\cr
-2step: the paramter for th are fitted first and the remaining parameter for K afterwards}}
+2step: the parameter for th are fitted first and the remaining parameter for K afterwards}}
 \describe{\item{log:\cr}{
 The use of log is suggested for paramter 'alfa', 'n' and 'ks' for modality == 'uni'. For modality 'bi' additional 'alfa2' and 'n2' and for Fun.shp == 'pdi' additional 'omega'.
 Parameter in output ($par) are not returned logarithmized. \cr

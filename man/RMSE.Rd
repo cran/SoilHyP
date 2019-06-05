@@ -4,12 +4,14 @@
 \alias{RMSE}
 \title{Root mean square error (RMSE)}
 \usage{
-RMSE(obs, sim)
+RMSE(obs, sim, na.rm = FALSE)
 }
 \arguments{
 \item{obs}{measured values}
 
 \item{sim}{predicted values}
+
+\item{na.rm}{logical. Should missing values be removed?}
 }
 \description{
 Calculate Root mean square error (RMSE)

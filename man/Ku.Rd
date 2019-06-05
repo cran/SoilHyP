@@ -22,12 +22,13 @@ Ku(suc, FUN.shp = "vG", par.shp, modality = "uni",
 unsaturated hydraulic conductivity (ku)
 }
 \description{
-Calculates unsaturated hydraulic conductivity for a given suction for unimodal or bimodal van Genuchten-Mualem (vg/vgm) or Peters-Durner-Iden (PDI) parameterisation.
+Calculates unsaturated hydraulic conductivity for a given suction for unimodal or bimodal van Genuchten-Mualem (vg/vgm), Peters-Durner-Iden (PDI) and Brooks and Corey (bc) (only unimodal) parameterisation.
 }
 \details{
 \describe{\item{FUN.shp:}{vGM: van Genuchten-Mualem (uni or bimodal) ('vg' works aswell)\cr
-PDI: Peters-Durner-Iden with van Genuchtens saturation function (uni or bimodal)}}
-\describe{\item{par.shp:}{
+PDI: Peters-Durner-Iden with van Genuchtens saturation function (uni or bimodal) \cr
+bc: Brooks and Corey (unimodal)}}
+\describe{\item{par.shp (vG and PDI):}{
 ths [-]: saturated water content\cr
 thr [-]: residual water content\cr
 alfa [1/L]: van Genuchten shape parameter\cr
@@ -43,6 +44,12 @@ a: slope at the log scale (a = -1.5 if missing as suggested by Tokunaga (2009) a
 w2 [-]: weigthing between pore space distributions \cr
 alfa2 [1/L]: van Genuchten parameter alfa for second pore space distribution \cr
 n2 [-]: van Genuchten parameter n for second pore space distribution}}
+\describe{\item{par.shp (BC):}{
+ths [-]: saturated water content \cr
+thr [-]: residual water content\cr
+alfa [1/L]: inverse of the air-entry value or bubbling pressure \cr
+lambda [-]: pore size distribution index \cr
+tau [-]:  tortuosity and connectivity parameter (minimum -1 or -2 for the PDI model; see Peters (2014) for details)}}
 
 most input works for upper- and lowercase letters
 }
@@ -51,21 +58,28 @@ most input works for upper- and lowercase letters
 #  Unimodal van Genuchten
 # --------------------------------------------
 Ku(suc = seq(1, 1000, by = 1), FUN.shp = 'vGM',
-  par.shp = list(Ks = 10, ths = 0.5, thr = 0, alfa = 0.02, n = 1.5, tau = 0.5),
-  modality = 'uni', suc.negativ = FALSE)
+   par.shp = list(Ks = 10, ths = 0.5, thr = 0, alfa = 0.02, n = 1.5, tau = 0.5),
+   modality = 'uni', suc.negativ = FALSE)
 # --------------------------------------------
 #  Bimodal van Genuchten
 # --------------------------------------------
 Ku(suc = seq(1, 1000, by = 1), FUN.shp = 'vGM',
-  par.shp = list(Ks = 10, ths = 0.5, thr = 0, alfa = 0.02,
-  n = 1.5, tau = 0.5, w2 = 0.1, alfa2 = 0.1, n2 = 3),
-  modality = 'bi', suc.negativ = FALSE)
+   par.shp = list(Ks = 10, ths = 0.5, thr = 0, alfa = 0.02,
+   n = 1.5, tau = 0.5, w2 = 0.1, alfa2 = 0.1, n2 = 3),
+   modality = 'bi', suc.negativ = FALSE)
 # --------------------------------------------
 #  Unimodal Peters-Durner-Iden (PDI)
 # --------------------------------------------
 Ku(suc = seq(1, 1000, by = 1), FUN.shp = 'PDI', modality = 'uni',
-  par.shp = list(Ks = 10, ths = 0.5, thr = 0, alfa = 0.02, n = 1.5, tau = 0.5, omega = 0.001),
-  suc.negativ = FALSE)
+   par.shp = list(Ks = 10, ths = 0.5, thr = 0, alfa = 0.02, n = 1.5, tau = 0.5, omega = 0.001),
+   suc.negativ = FALSE)
+# --------------------------------------------
+#  Brooks and Corey (BC) (only unimodal)
+# --------------------------------------------
+Ku(suc = seq(1, 1000, by = 1), FUN.shp = 'bc', modality = 'uni',
+   par.shp = list(ths = 0.4, thr = 0, lambda =  0.211, alfa = 0.1, tau = 0.5, ks = 10),
+   suc.negativ = FALSE)
+# --------------------------------------------
 }
 \references{
 Van Genuchten, M. T. (1980). A closed-form equation for predicting the hydraulic conductivity of unsaturated soils. Soil science society of America journal, 44(5), 892-898.
@@ -85,6 +99,8 @@ Priesack, E., Durner, W., 2006. Closed-form expression for the multi-modal unsat
 Durner, W. (1994). Hydraulic conductivity estimation for soils with heterogeneous pore structure. Water Resources Research, 30(2), 211-223.
 
 Schneider, M., & Goss, K. U. (2012). Prediction of the water sorption isotherm in air dry soils. Geoderma, 170, 64-69.
+
+Brooks, R.H., and A.T. Corey (1964): Hydraulic properties of porous media. Hydrol. Paper 3. Colorado State Univ., Fort Collins, CO, USA.
 }
 \seealso{
 \code{\link{SWC}} and \code{\link{Sat}}

@@ -5,7 +5,7 @@
 #' @param par a numeric vector of initial parameter values (sea also \code{\link{SCEoptim}}). If missing default values are set.
 #' @param lower lower bounds on the parameters. Should be the same length as \code{par} and as \code{upper}, or length 1 if a bound applies to all parameters. If missing default values are set.
 #' @param upper upper bounds on the parameters. Should be the same length as \code{par} and as \code{lower}, or length 1 if a bound applies to all parameters. If missing default values are set.
-#' @param FUN.shp Funktion for soil hydraulic properties (vG or PDI) (see \code{\link{SWC}} or \code{\link{Ku}})
+#' @param FUN.shp Funktion for soil hydraulic properties (vG, PDI or bc) (see \code{\link{SWC}} or \code{\link{Ku}})
 #' @param par.shp fixed parameter value named in list or vector
 #' @param modality pore size distribution ('uni' or 'bi')
 #' @param fit fit parameter for 'SWC', 'Ku' or 'both' simultaneous.
@@ -15,12 +15,13 @@
 #' @param control a list of options as in \code{optim()}, see \code{\link{SCEoptim}}
 #' @param integral th as point value vs. suc(h) (FALSE) or th as mean water content over the column divided by the height (L) vs. suc(h) (TRUE) (see details).
 #' @param L sample height [cm]. Only needed for integral == TRUE
+#' @param log_Ku logarithmize Ku in the objective function and for weighting (TRUE).
 #' @param print.info print information about default values for par, lower, and upper if missing or fitting accuracy (TRUE or FALSE)
 #' @details
 #' \describe{\item{weigthing:\cr}{
 #' var: th and K are weighted in the objective fuction by the measurement variance  \cr
 #' norm: th and K are normed in objective fuction\cr
-#' 2step: the parameter for th are fitted first and the remaining parameter for K afterwards}}
+#' stepwise: the parameter for th are fitted first and the remaining parameter for K afterwards (2step works aswell)}}
 #' \describe{\item{log:\cr}{
 #' The use of log is suggested for paramter 'alfa', 'n' and 'ks' for modality == 'uni'. For modality 'bi' additional 'alfa2' and 'n2' and for Fun.shp == 'pdi' additional 'omega'.
 #' Parameter in output ($par) are not returned logarithmized. \cr
@@ -98,20 +99,27 @@ fitSHP <- function(obs = list(th = NULL, K = NULL),
                    FUN.shp = 'vg', modality = 'uni',
                    par.shp = NULL, fit = 'both', weighting = 'var',
                    log = c('alfa', 'n', 'ks'), control = list(ncomplex = 15, reltol = 1e-7, tolsteps = 7),
-                   suc.negativ = TRUE, integral = FALSE, L = NULL, print.info = TRUE) {
+                   suc.negativ = FALSE, integral = FALSE, L = NULL, log_Ku = TRUE, print.info = TRUE) {
+
   # prepare input
   if (!is.null(par.shp) & !is.list(par.shp)) { par.shp <- as.list(par.shp) }
   # tolower input
-  if (!is.null(par.shp)) {names(par.shp) <- tolower(names(par.shp)) }
+  if (!is.null(par.shp)) { names(par.shp) <- tolower(names(par.shp)) }
   modality <- tolower(modality)
   FUN.shp <- tolower(FUN.shp)
   log <- tolower(log)
   if (FUN.shp == 'vgm') {FUN.shp <-  'vg'}
   fit <- tolower(fit)
 
-  if (integral == TRUE & is.null(L)) {
+  if (is.list(par)) { par <- unlist(par)}
+  if (is.list(upper)) { upper <- unlist(upper)}
+  if (is.list(lower)) { lower <- unlist(lower)}
 
-  }
+  if (weighting == 'stepwise') {weighting <- '2step'}
+  stopifnot(weighting == 'stepwise' | weighting == '2step' | weighting == 'norm'| weighting == 'var')
+  # if (integral == TRUE & is.null(L)) {
+  #
+  # }
   # remove Na from obs and suc -----------------------------------------------------------------------
   if (fit == 'ku' | fit == 'both') {
   suc.K.na <- !is.na(suc$K)
@@ -134,12 +142,23 @@ fitSHP <- function(obs = list(th = NULL, K = NULL),
   if(is.null(par)) {
     if (modality == 'uni') {
       if (fit == 'swc')   {
-        par = c(ths = 0.5, thr = 0, alfa = 0.01, n = 1.2)
-      }
+        if (FUN.shp == 'pdi' | FUN.shp == 'vg')   {
+          par = c(ths = 0.5, thr = 0, alfa = 0.01, n = 1.2)
+        }
+        if (FUN.shp == 'bc')   {
+          par = c(ths = 0.5, thr = 0, alfa = 0.01, lambda = 1.2)
+        }
+
+        }
       if (fit == 'both' | fit == 'ku')   {
-        par = c(ths = 0.5, thr = 0, alfa = 0.01, n = 1.2, ks = 100, tau = 0.5)
-        if (FUN.shp == 'pdi') {
-          par <- c(par, omega = 0.0005)
+        if (FUN.shp == 'pdi' | FUN.shp == 'vg')   {
+          par = c(ths = 0.5, thr = 0, alfa = 0.01, n = 1.2, ks = 100, tau = 0.5)
+          if (FUN.shp == 'pdi') {
+            par <- c(par, omega = 0.0005)
+          }
+        }
+        if (FUN.shp == 'bc')   {
+          par = c(ths = 0.5, thr = 0, alfa = 0.01, lambda = 1.2, ks = 100, tau = 0.5)
         }
       }
     }
@@ -163,12 +182,23 @@ fitSHP <- function(obs = list(th = NULL, K = NULL),
   if(is.null(lower)) {
     if (modality == 'uni') {
       if (fit == 'swc')   {
-        lower = c(ths = 0.4, thr = 0, alfa = 0.001, n = 1.01)
+        if (FUN.shp == 'pdi' | FUN.shp == 'vg')   {
+          lower = c(ths = 0.4, thr = 0, alfa = 0.001, n = 1.01)
         }
+        if (FUN.shp == 'bc')   {
+          lower = c(ths = 0.5, thr = 0, alfa = 0.01, lambda = 0)
+        }
+      }
+
       if (fit == 'both' | fit == 'ku')   {
-      lower = c(ths = 0.4, thr = 0, alfa = 0.001, n = 1.01, ks = 0.0001, tau = -2)
-      if (FUN.shp == 'pdi') {
-        lower <- c(lower, omega = 0.000000000001)
+        if (FUN.shp == 'pdi' | FUN.shp == 'vg')   {
+          lower = c(ths = 0.4, thr = 0, alfa = 0.001, n = 1.01, ks = 0.0001, tau = -2)
+          if (FUN.shp == 'pdi') {
+            lower <- c(lower, omega = 0.000000000001)
+          }
+        }
+        if (FUN.shp == 'bc')   {
+          lower = c(ths = 0.5, thr = 0, alfa = 0.01, lambda = 0.000000001, ks = 0.0001, tau = -2)
         }
       }
     }
@@ -192,12 +222,22 @@ fitSHP <- function(obs = list(th = NULL, K = NULL),
   if(is.null(upper)) {
     if (modality == 'uni') {
       if (fit == 'swc')   {
-        upper = c(ths = 1, thr = 0.4, alfa = 5, n = 10)
+        if (FUN.shp == 'pdi' | FUN.shp == 'vg')   {
+          upper = c(ths = 1, thr = 0.4, alfa = 5, n = 10)
+        }
+        if (FUN.shp == 'bc')   {
+          upper = c(ths = 1, thr = 0.4, alfa = 5, lambda = 10)
+        }
       }
       if (fit == 'both' | fit == 'ku')   {
-      upper = c(ths = 1, thr = 0.4, alfa = 5, n = 10, ks = 5000, tau = 5)
-      if (FUN.shp == 'pdi') {
-        upper <- c(upper, omega = 0.1)
+        if (FUN.shp == 'pdi' | FUN.shp == 'vg')   {
+          upper = c(ths = 1, thr = 0.4, alfa = 5, n = 10, ks = 5000, tau = 5)
+          if (FUN.shp == 'pdi') {
+            upper <- c(upper, omega = 0.1)
+        }
+        }
+        if (FUN.shp == 'bc')   {
+          upper = c(ths = 1, thr = 0.4, alfa = 5, lambda = 10, ks = 5000, tau = 5)
         }
       }
     }
@@ -246,7 +286,7 @@ fitSHP <- function(obs = list(th = NULL, K = NULL),
   # Define objective function-------------------------------------------------------------------------
   OF <- function(x, obs = obs, suc = suc, fit = fit,
                  FUN.shp = FUN.shp, par.shp = par.shp, modality = modality, weighting = weighting,
-                 log = log, integral = integral, L = L) {
+                 log = log, integral = integral, L = L, log_Ku = log_Ku) {
 
   x[names(x) %in% log] <- 10^x[names(x) %in% log]
   par.shp <- c(x, par.shp)
@@ -275,7 +315,12 @@ fitSHP <- function(obs = list(th = NULL, K = NULL),
   if (fit == 'both' | fit == 'ku') {
   # conductivity
   K <- Ku(suc = suc$K, par.shp = par.shp, FUN.shp = FUN.shp, suc.negativ = suc.negativ, modality = modality)
-  res.K <- sum((K - obs$K)^2)
+  if (log_Ku == TRUE) {
+    res.K <- sum((log(K, base = 10) - log(obs$K, 10))^2)
+  }
+  if (log_Ku == FALSE) {
+    res.K <- sum((K - obs$K)^2)
+  }
   }
 
   if (fit == 'both') {
@@ -283,19 +328,29 @@ fitSHP <- function(obs = list(th = NULL, K = NULL),
   # Varianz
   if (weighting == 'var') {
     w.th <- 1/(sd(obs$th)^2)
-    w.K <- 1/(sd(obs$K)^2)
+    if (log_Ku == FALSE) {
+      w.K <- 1/(sd(obs$K)^2)
+    }
+    if (log_Ku == TRUE) {
+      w.K <- 1/(sd(log10(obs$K))^2)
+    }
   }
   # normalized
   if (weighting == 'norm') {
     w.th <- 1/(max(obs$th) - min(obs$th))
-    w.K <- 1/(max(obs$K) - min(obs$K))
+    if (log_Ku == FALSE) {
+      w.K <- 1/(max(obs$K) - min(obs$K))
+    }
+    if (log_Ku == TRUE) {
+      w.K <- 1/(max(log10(obs$K)) - min(log10(obs$K)))
+    }
   }
-  res <- w.K * res.K + w.th * res.th
+  res <- (w.K * res.K) + (w.th * res.th)
   }
   # ------------------------------------------------------------------------------
   if (fit == 'ku')   {res <- res.K}
   if (fit == 'swc')  {res <- res.th}
-
+  if (fit == 'swc')  {res <- (1/(max(obs$th) - min(obs$th))) *res.th}
   res
 }
 
@@ -314,6 +369,7 @@ ans <- SCEoptim(OF,
          fit       = fit,
          control   = control,
          integral  = integral,
+         log_Ku    = log_Ku,
          L         = L
          )
 
@@ -343,6 +399,14 @@ ans$par <- as.list(c(ans$par, unlist(par.shp)))
       upper.fit1 <- upper[!(names(upper) == 'ks' | names(upper) == 'tau' | names(upper) == 'omega')]
       upper.fit2 <- upper[(names(upper) == 'ks'  | names(upper) == 'tau' | names(upper) == 'omega')]
     }
+    if (FUN.shp == 'bc') {
+      par.fit1 <- par[!(names(par) == 'ks' | names(par) == 'tau' | names(par) == 'omega')]
+      par.fit2 <- par[(names(par) == 'ks' | names(par) == 'tau'| names(par) == 'omega')]
+      lower.fit1 <- lower[!(names(lower) == 'ks' | names(lower) == 'tau' | names(lower) == 'omega')]
+      lower.fit2 <- lower[(names(lower) == 'ks'  | names(lower) == 'tau' | names(lower) == 'omega')]
+      upper.fit1 <- upper[!(names(upper) == 'ks' | names(upper) == 'tau' | names(upper) == 'omega')]
+      upper.fit2 <- upper[(names(upper) == 'ks'  | names(upper) == 'tau' | names(upper) == 'omega')]
+    }
     ans1 <- SCEoptim(OF,
                     par       = par.fit1,
                     lower     = lower.fit1,
@@ -357,7 +421,9 @@ ans$par <- as.list(c(ans$par, unlist(par.shp)))
                     fit       = 'swc',
                     control   = control,
                     integral  = integral,
-                    L         = L)
+                    L         = L,
+                    log_Ku    = log_Ku)
+
 
     if (any(!is.na(log))) {
       log.par <- names(ans1$par) %in% log
@@ -381,7 +447,8 @@ ans$par <- as.list(c(ans$par, unlist(par.shp)))
                      fit       = 'ku',
                      control   = control,
                      integral  = integral,
-                     L         = L)
+                     L         = L,
+                     log_Ku    = log_Ku)
 
    if (any(!is.na(log))) {
      log.par <- names(ans2$par) %in% log
@@ -390,10 +457,11 @@ ans$par <- as.list(c(ans$par, unlist(par.shp)))
 
    ans <- ans1$control
    ans$par <- as.list(c(ans1$par, ans2$par, unlist(par.shp)))
+   ans$par <- ans$par[!duplicated(ans$par)] #remove duplicated parameter resulting from par.shp
     }
 
 # output-------------------------------------------------------------------------------
-  ans$input <- list(obs = obs, suc = suc, FUN.shp = FUN.shp, modality = modality, fit = fit, suc.negativ = suc.negativ, weighting = weighting)
+  ans$input <- list(log_Ku = log_Ku, obs = obs, suc = suc, FUN.shp = FUN.shp, modality = modality, fit = fit, suc.negativ = suc.negativ, weighting = weighting)
 
   if (fit == 'both' | fit == 'swc') {
     ans$RMSE.th <- RMSE(obs$th, SWC(suc = suc$th, par.shp = ans$par, FUN.shp = FUN.shp, modality = modality, suc.negativ = suc.negativ))
@@ -402,7 +470,7 @@ ans$par <- as.list(c(ans$par, unlist(par.shp)))
     }
   }
   if (fit == 'both' | fit == 'ku') {
-    ans$RMSE.K <- RMSE(obs$K, Ku(suc$K, par.shp = ans$par, FUN.shp = FUN.shp, modality = modality, suc.negativ = suc.negativ))
+    ans$RMSE.K <- RMSE(obs$K, Ku(suc$K, par.shp = ans$par, FUN.shp = FUN.shp, modality = modality, suc.negativ = suc.negativ), na.rm = T)
     if (print.info == TRUE) {
     print(paste0('RMSE_K: ', ans$RMSE.K))
     }
@@ -410,9 +478,3 @@ ans$par <- as.list(c(ans$par, unlist(par.shp)))
 attr(ans, "class") <- 'fitSHP'
 ans
 }
-
-
-
-
-
-

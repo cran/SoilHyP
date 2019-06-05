@@ -12,7 +12,7 @@ SWC(suc, par.shp = c(ths = 0.9, thr = 0, alfa = 0.02, n = 2),
 
 \item{par.shp}{named parameter in list or vector}
 
-\item{FUN.shp}{Funktion for soil hydraulic properties (vG or PDI) (see details)}
+\item{FUN.shp}{Funktion for soil hydraulic properties (vG, PDI or bc) (see details)}
 
 \item{modality}{pore size distribution ('uni' or 'bi')}
 
@@ -22,12 +22,13 @@ SWC(suc, par.shp = c(ths = 0.9, thr = 0, alfa = 0.02, n = 2),
 volumetric water content theta (th) [L³/L³]
 }
 \description{
-Calculates the volumetric soil water content for a corresponding suction/pressure head (th(suc)) for unimodal or bimodal van Genuchten (vG) or Peters-Durner-Iden (PDI) parameterisation.
+Calculates the volumetric soil water content for a corresponding suction/pressure head (th(suc)) for unimodal or bimodal van Genuchten (vG), Peters-Durner-Iden (PDI) and Brooks and Corey (bc) (only unimodal) parameterisation.
 }
 \details{
 \describe{\item{FUN.shp:}{
 vG: van Genuchten (uni or bimodal) (vGM is working aswell) \cr
-PDI: Peters-Durner-Iden with saturation function van Genuchten (uni or bimodal)}}
+PDI: Peters-Durner-Iden with saturation function of van Genuchten (uni or bimodal) \cr
+bc: Brooks and Corey (unimodal)}}
 \describe{\item{par.shp (vG and PDI):}{
 ths [-]: saturated water content \cr
 thr [-]: residual water content\cr
@@ -41,6 +42,11 @@ w2 [-]: weigthing between pore space distributions \cr
 alfa2 [1/L]: van Genuchten parameter alfa for second pore space distribution \cr
 n2 [-]: van Genuchten parameter n for second pore space distribution \cr
 m2 [-]: shape parameter (m2 = 1-(1/n2) if missing)}}
+\describe{\item{par.shp (BC):}{
+ths [-]: saturated water content \cr
+thr [-]: residual water content\cr
+alfa [1/L]: inverse of the air-entry value or bubbling pressure \cr
+lambda [-]: pore size distribution index }}
 
 PDI:\cr
 theta(h) = (ths - thr) * Scap(h) + thr * Sad(h) \cr
@@ -65,7 +71,11 @@ FUN.shp  = c('vG'), modality = c('bi'), suc.negativ = FALSE)
 #  Unimodal PDI
 # --------------------------------------------
 SWC(suc = seq(1, 1000, by = 1), par.shp = list(ths = 0.4, thr = 0, n = 1.6, alfa = 0.02),
-  FUN.shp = c('pdi'), modality = c('uni'), suc.negativ = FALSE)
+FUN.shp = c('pdi'), modality = c('uni'), suc.negativ = FALSE)
+# --------------------------------------------
+#  Brooks and Corey (BC) (only unimodal)
+SWC(suc = seq(1, 1000, by = 1), par.shp = list(ths = 0.4, thr = 0, lambda =  0.211, alfa = 0.1),
+FUN.shp = c('bc'), modality = c('uni'), suc.negativ = FALSE)
 # --------------------------------------------
 }
 \references{
@@ -80,6 +90,8 @@ Iden, S., Durner, W. (2014). Comment to Simple consistent models for water reten
 Peters, A. (2014). Reply to comment by S. Iden and W. Durner on Simple consistent models for water retention and hydraulic conductivity in the complete moisture range. Water Resour. Res. 50, 7535–7539.
 
 Schneider, M., & Goss, K. U. (2012). Prediction of the water sorption isotherm in air dry soils. Geoderma, 170, 64-69.
+
+Brooks, R.H., and A.T. Corey (1964): Hydraulic properties of porous media. Hydrol. Paper 3. Colorado State Univ., Fort Collins, CO, USA.
 }
 \seealso{
 \code{\link{Ku}} \code{\link{Sat}}

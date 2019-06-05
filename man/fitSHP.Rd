@@ -9,7 +9,7 @@ fitSHP(obs = list(th = NULL, K = NULL), suc = list(th = NULL, K =
   modality = "uni", par.shp = NULL, fit = "both",
   weighting = "var", log = c("alfa", "n", "ks"),
   control = list(ncomplex = 15, reltol = 1e-07, tolsteps = 7),
-  suc.negativ = TRUE, integral = FALSE, L = NULL,
+  suc.negativ = FALSE, integral = FALSE, L = NULL, log_Ku = TRUE,
   print.info = TRUE)
 }
 \arguments{
@@ -23,7 +23,7 @@ fitSHP(obs = list(th = NULL, K = NULL), suc = list(th = NULL, K =
 
 \item{upper}{upper bounds on the parameters. Should be the same length as \code{par} and as \code{lower}, or length 1 if a bound applies to all parameters. If missing default values are set.}
 
-\item{FUN.shp}{Funktion for soil hydraulic properties (vG or PDI) (see \code{\link{SWC}} or \code{\link{Ku}})}
+\item{FUN.shp}{Funktion for soil hydraulic properties (vG, PDI or bc) (see \code{\link{SWC}} or \code{\link{Ku}})}
 
 \item{modality}{pore size distribution ('uni' or 'bi')}
 
@@ -43,6 +43,8 @@ fitSHP(obs = list(th = NULL, K = NULL), suc = list(th = NULL, K =
 
 \item{L}{sample height [cm]. Only needed for integral == TRUE}
 
+\item{log_Ku}{logarithmize Ku in the objective function and for weighting (TRUE).}
+
 \item{print.info}{print information about default values for par, lower, and upper if missing or fitting accuracy (TRUE or FALSE)}
 }
 \value{
@@ -55,7 +57,7 @@ Estimate parameter for soil water retention (SWC) and/or unsaturated hydraulic c
 \describe{\item{weigthing:\cr}{
 var: th and K are weighted in the objective fuction by the measurement variance  \cr
 norm: th and K are normed in objective fuction\cr
-2step: the parameter for th are fitted first and the remaining parameter for K afterwards}}
+stepwise: the parameter for th are fitted first and the remaining parameter for K afterwards (2step works aswell)}}
 \describe{\item{log:\cr}{
 The use of log is suggested for paramter 'alfa', 'n' and 'ks' for modality == 'uni'. For modality 'bi' additional 'alfa2' and 'n2' and for Fun.shp == 'pdi' additional 'omega'.
 Parameter in output ($par) are not returned logarithmized. \cr

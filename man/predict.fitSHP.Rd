@@ -4,8 +4,7 @@
 \alias{predict.fitSHP}
 \title{Predict values using fitSHP object}
 \usage{
-\method{predict}{fitSHP}(object, suc = NULL, length.out = 100,
-  suc.negativ = FALSE, ...)
+\method{predict}{fitSHP}(object, suc = NULL, length.out = 100, suc.negativ = FALSE, ...)
 }
 \arguments{
 \item{object}{object of class fitSHP}

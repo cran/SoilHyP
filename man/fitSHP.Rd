@@ -4,20 +4,32 @@
 \alias{fitSHP}
 \title{Fit soil hydraulic properties}
 \usage{
-fitSHP(obs = list(th = NULL, K = NULL), suc = list(th = NULL, K =
-  NULL), par = NULL, lower = NULL, upper = NULL, FUN.shp = "vg",
-  modality = "uni", par.shp = NULL, fit = "both",
-  weighting = "var", log = c("alfa", "n", "ks"),
+fitSHP(
+  obs = list(th = NULL, K = NULL),
+  suc = list(th = NULL, K = NULL),
+  par = NULL,
+  lower = NULL,
+  upper = NULL,
+  FUN.shp = "vg",
+  modality = "uni",
+  par.shp = NULL,
+  fit = "both",
+  weighting = "var",
+  log = c("alfa", "n", "ks"),
   control = list(ncomplex = 15, reltol = 1e-07, tolsteps = 7),
-  suc.negativ = FALSE, integral = FALSE, L = NULL, log_Ku = TRUE,
-  print.info = TRUE)
+  suc.negativ = FALSE,
+  integral = FALSE,
+  L = NULL,
+  log_Ku = TRUE,
+  print.info = TRUE
+)
 }
 \arguments{
 \item{obs}{list with named observations (th for water content and K for unsaturated hydraulic conductivity data)}
 
 \item{suc}{list of named suctions corresponding to th and/or K}
 
-\item{par}{a numeric vector of initial parameter values (sea also \code{\link{SCEoptim}}). If missing default values are set.}
+\item{par}{a numeric vector of initial parameter values (see also \code{\link{SCEoptim}}). If missing default values are set.}
 
 \item{lower}{lower bounds on the parameters. Should be the same length as \code{par} and as \code{upper}, or length 1 if a bound applies to all parameters. If missing default values are set.}
 

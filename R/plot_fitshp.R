@@ -56,7 +56,7 @@ plot.fitSHP <- function(x, ...) {
          xlim = range(temp1),
          ylim = c(0, 1),
          log = 'x',
-         xlab = 'Pressure Heads [cm]',
+         xlab = 'pressure head [cm]',
          ylab = expression(paste(theta," (cm"^3, " cm"^-3,')')),
          pch = 20, ...)
     lines(x = temp1, y = fit.swc, col = 'RED', ...)
@@ -65,7 +65,7 @@ plot.fitSHP <- function(x, ...) {
          xlim = range(temp2),
          ylim = range(fit.ku),
          log = 'xy',
-         xlab = 'Pressure Heads [cm]',
+         xlab = 'pressure head [cm]',
          ylab = 'Ku', pch = 20, ...)
     lines(x = temp2, y = fit.ku, col = 'RED', ...)
     lines(fit.ku ~ temp2, col = 'RED', ...)
@@ -78,7 +78,7 @@ plot.fitSHP <- function(x, ...) {
          xlim = range(temp1),
          ylim = c(0, 1),
          log = 'x',
-         xlab = 'Pressure Heads [cm]',
+         xlab = 'pressure head [cm]',
          ylab = expression(paste(theta," (cm"^3, " cm"^-3,')')),
          pch = 20, ...) # ylim = range(fit.swc),
     lines(x = temp1, y = fit.swc, col = 'RED', ...)
@@ -91,7 +91,7 @@ plot.fitSHP <- function(x, ...) {
          xlim = range(temp2),
          ylim = range(fit.ku),
          log = 'xy',
-         xlab = 'Pressure Heads [cm]',
+         xlab = 'pressure head [cm]',
          ylab = 'Ku', pch = 20, ...)
     lines(x = temp2, y = fit.ku, col = 'RED', ...)
     legend('bottomleft', legend=c('Data', 'Fit'), col=c('Black', 'RED'),

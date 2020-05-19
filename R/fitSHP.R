@@ -2,7 +2,7 @@
 #' @description Estimate parameter for soil water retention (SWC) and/or unsaturated hydraulic conductivity function (Ku) using Shuffled Complex Evolution (SCE) optimisation. Parameter can be estimated for van Genuchten-Mualem (vg or vgm) or Peters-Durner-Iden (PDI) parameterisation of the soil hydraulic properties.
 #' @param obs list with named observations (th for water content and K for unsaturated hydraulic conductivity data)
 #' @param suc list of named suctions corresponding to th and/or K
-#' @param par a numeric vector of initial parameter values (sea also \code{\link{SCEoptim}}). If missing default values are set.
+#' @param par a numeric vector of initial parameter values (see also \code{\link{SCEoptim}}). If missing default values are set.
 #' @param lower lower bounds on the parameters. Should be the same length as \code{par} and as \code{upper}, or length 1 if a bound applies to all parameters. If missing default values are set.
 #' @param upper upper bounds on the parameters. Should be the same length as \code{par} and as \code{lower}, or length 1 if a bound applies to all parameters. If missing default values are set.
 #' @param FUN.shp Funktion for soil hydraulic properties (vG, PDI or bc) (see \code{\link{SWC}} or \code{\link{Ku}})

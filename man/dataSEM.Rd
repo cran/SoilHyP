@@ -4,7 +4,7 @@
 \name{dataSEM}
 \alias{dataSEM}
 \title{Evaporation experiment data}
-\format{An object of class \code{data.frame} with 332 rows and 4 columns.}
+\format{An object of class \code{dataSEM} (inherits from \code{data.frame}) with 332 rows and 4 columns.}
 \usage{
 data(dataSEM)
 }
@@ -13,8 +13,8 @@ Example data of an Evaporation experiment
 }
 \details{
 \describe{\item{Columns:}{}
-\item{}{hour: time [hour]}\item{}{weight: total weight of soil sample [g]}
+\item{}{ts: timestamp [hour]}\item{}{weight: total weight of soil sample [g]}
 \item{}{tens.up: measurements of upper tensiometer [cm]}
-\item{}{tens.bot: measurements of lower tensiometer [cm]}}
+\item{}{tens.low: measurements of lower tensiometer [cm]}}
 }
 \keyword{datasets}

@@ -4,8 +4,7 @@
 \alias{Sat}
 \title{Capillary saturation function}
 \usage{
-Sat(suc, par.shp, modality = c("uni"), FUN.shp = "vg",
-  suc.negativ = TRUE)
+Sat(suc, par.shp, modality = c("uni"), FUN.shp = "vg", suc.negativ = TRUE)
 }
 \arguments{
 \item{suc}{Suction/pressure heads. Negative if suc.negativ = TRUE}

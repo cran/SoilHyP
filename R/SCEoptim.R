@@ -1,3 +1,4 @@
+# ToDo: fix default value for tolsteps under details 
 # copied from the hydromad package (https://github.com/floybix/hydromad) Version: 0.9-15
 # URL: http://hydromad.catchment.org/
 # licence:  GPL (>= 2)
@@ -44,7 +45,7 @@ sceDefaults <- function()
        elitism = 1,            ## controls amount of weighting in sampling towards the better parameter sets
        initsample = "latin",   ## sampling scheme for initial values -- "latin" or "random"
        reltol = 1e-5,          ## convergence threshold: relative improvement factor required in an SCE iteration
-       tolsteps = 7,           ## number of iterations within reltol to confirm convergence
+       tolsteps = 20,           ## number of iterations within reltol to confirm convergence
        maxit = 10000,          ## maximum number of iterations
        maxeval = Inf,          ## maximum number of function evaluations
        maxtime = Inf,          ## maximum duration of optimization in seconds
@@ -81,9 +82,9 @@ sceDefaults <- function()
 #' improvement factor required in an SCE iteration (in same sense as
 #' \code{optim}), and defaults to \code{1e-5}.
 #'
-#' }\item{tolsteps}{ #'
+#' }\item{tolsteps}{
 #' \code{tolsteps} is the number of iterations where the improvement is within
-#' \code{reltol} required to confirm convergence. This defaults to \code{7}.  }
+#' \code{reltol} required to confirm convergence. This defaults to \code{20}.  }
 #' \item{maxit}{ maximum number of iterations. Defaults to
 #' \code{10000}.  } \item{maxeval}{ maximum number of function
 #' evaluations. Defaults to \code{Inf}.  } \item{maxtime}{ maximum
@@ -505,6 +506,6 @@ SCEoptim <- function(FUN, par,
   }
   obj$POP.FIT.ALL <- POP.FIT.ALL[1:i,]
   obj$BESTMEM.ALL <- BESTMEM.ALL[1:i,]
-
+  obj$FUN <- FUN
   obj
 }

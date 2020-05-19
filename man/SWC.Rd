@@ -4,8 +4,13 @@
 \alias{SWC}
 \title{Soil water content}
 \usage{
-SWC(suc, par.shp = c(ths = 0.9, thr = 0, alfa = 0.02, n = 2),
-  FUN.shp = "vg", modality = "uni", suc.negativ = TRUE)
+SWC(
+  suc,
+  par.shp = c(ths = 0.9, thr = 0, alfa = 0.02, n = 2),
+  FUN.shp = "vg",
+  modality = "uni",
+  suc.negativ = TRUE
+)
 }
 \arguments{
 \item{suc}{Suction/pressure heads. Negative if suc.negativ = TRUE}

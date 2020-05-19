@@ -55,9 +55,9 @@ values: "latin" (hypercube) or "random".  Defaults to \code{"latin"}.  }
 improvement factor required in an SCE iteration (in same sense as
 \code{optim}), and defaults to \code{1e-5}.
 
-}\item{tolsteps}{ #'
+}\item{tolsteps}{
 \code{tolsteps} is the number of iterations where the improvement is within
-\code{reltol} required to confirm convergence. This defaults to \code{7}.  }
+\code{reltol} required to confirm convergence. This defaults to \code{20}.  }
 \item{maxit}{ maximum number of iterations. Defaults to
 \code{10000}.  } \item{maxeval}{ maximum number of function
 evaluations. Defaults to \code{Inf}.  } \item{maxtime}{ maximum

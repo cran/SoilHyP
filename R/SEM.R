@@ -29,7 +29,7 @@
 #' shp <- SEM(suc.up     = dataSEM$tens.up,
 #'           suc.low     = dataSEM$tens.low,
 #'           weight      = dataSEM$weight,
-#'           t           = dataSEM$hour*60*60,
+#'           t           = dataSEM$ts*60*60,
 #'           r           = 3.6, # radius of sample
 #'           L           = 6,   # height of sample
 #'           z1          = 1.5, # depth of upper tensiometer [cm]

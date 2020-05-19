@@ -4,9 +4,20 @@
 \alias{SEM}
 \title{Simplified evaporation method (SEM)}
 \usage{
-SEM(suc.up, suc.low, weight = NULL, t, ths = NULL, r = 3.6, L = 6,
-  z1 = 1.5, z2 = 4.5, sd.tens = 0.2, suc.negativ = TRUE,
-  suc.out = "weighted")
+SEM(
+  suc.up,
+  suc.low,
+  weight = NULL,
+  t,
+  ths = NULL,
+  r = 3.6,
+  L = 6,
+  z1 = 1.5,
+  z2 = 4.5,
+  sd.tens = 0.2,
+  suc.negativ = TRUE,
+  suc.out = "weighted"
+)
 }
 \arguments{
 \item{suc.up}{a numeric vector containing the measured suctions [cm] of the upper tensiometer}
@@ -55,7 +66,7 @@ ths <- 0.7  # define saturated water content (ths) (optional)
 shp <- SEM(suc.up     = dataSEM$tens.up,
           suc.low     = dataSEM$tens.low,
           weight      = dataSEM$weight,
-          t           = dataSEM$hour*60*60,
+          t           = dataSEM$ts*60*60,
           r           = 3.6, # radius of sample
           L           = 6,   # height of sample
           z1          = 1.5, # depth of upper tensiometer [cm]

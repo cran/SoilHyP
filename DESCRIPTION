@@ -1,8 +1,8 @@
 Package: SoilHyP
 Type: Package
 Title: Soil Hydraulic Properties
-Version: 0.1.4
-Date: 2020-05-19
+Version: 0.1.5
+Date: 2021-01-08
 Maintainer: Ullrich Dettmann <ullrich.dettmann@thuenen.de>
 Authors@R: c(person('Ullrich', 'Dettmann', email = 'ullrich.dettmann@thuenen.de',
                   role = c('aut', 'cre')), 
@@ -19,14 +19,14 @@ Description: Provides functions for (1) soil water retention (SWC) and unsaturat
     [6] Wind G. P. (1966),
     [7] Peters and Durner (2008) <doi:10.1016/j.jhydrol.2008.04.016> and
     [8] Brooks and Corey (1964).
-Imports: data.table (>= 1.12), lubridate (>= 1.7.8)
+Imports: data.table (>= 1.13), lubridate (>= 1.7.9)
 BugReports: https://bitbucket.org/UlliD/soilhyp/issues
 Encoding: UTF-8
 License: GPL (>= 2)
-Depends: R (>= 3.5.0)
-RoxygenNote: 7.0.2
+Depends: R (>= 4.0.0)
+RoxygenNote: 7.1.1
 NeedsCompilation: no
-Packaged: 2020-05-19 15:49:28 UTC; ulli
+Packaged: 2021-01-08 13:47:38 UTC; ullrich
 Author: Ullrich Dettmann [aut, cre],
   Felix Andrews [ctb] (For the code copied from the hydromad::SCEoptim
     function (Version: 0.9-15) which is not on r-cran
@@ -37,4 +37,4 @@ Author: Ullrich Dettmann [aut, cre],
     reviesed in the hydromad::SCEoptim function.),
   Qingyun Duan [ctb] (For the MATLAB code adapted from Brecht Donkels.)
 Repository: CRAN
-Date/Publication: 2020-05-19 16:50:02 UTC
+Date/Publication: 2021-01-08 16:00:06 UTC

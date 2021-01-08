@@ -1,7 +1,8 @@
-056e5013f6b703744be223b39bec1a96 *DESCRIPTION
-7a373fe2abc6acdd4beb488587ad4ceb *NAMESPACE
+977194ff272a64814705d081313dff2b *DESCRIPTION
+bbc8d33ed30ad15ff4fc2949b5c193eb *NAMESPACE
 533e2a59000fec2567b7087b1f5e849f *R/AIC_HY.R
 a67b4ece630158312ac3514fb28a1522 *R/BIC_HY.R
+5f2e37686fb9c56f2a7fea90d77c2978 *R/DK_to_SWC.R
 1901f3c76a40d97bd0d473d4b68c60c2 *R/Kcap.R
 4589cb825ff2f4195913f8216664fba1 *R/Kfilm.R
 99f1fd3866e4c6b810dab8571a0fd2b8 *R/Ku.R
@@ -14,6 +15,7 @@ e51922ee917ca9ddccc16d5d363723e3 *R/NSE.R
 031450f03ecc648922242058324a03bf *R/Sat.R
 3e13128a65ccfe7283d6d91e989d3102 *R/Sat_old.R
 640c1828b3fc41b141eb19da820aed37 *R/Scap.R
+e705c007cba333aa49c34b5c247f48f4 *R/calcKS.r
 5657a9506e032b799636b18bf2297f85 *R/dataSEM.R
 72f267c4fa6f25acef0b21021b0b84d7 *R/dataSHP.R
 52028e5e17c5fdfb2d83b56f0103f256 *R/dataTestthat.R
@@ -23,11 +25,11 @@ f6be93ef071d4510cf1e7e310574b73a *R/plot_dataSEM.R
 0b8a8a542afbc53c9e01bfc3995f5cfa *R/predict_fitSHP.R
 651d6a3e4f8bdc7adb5e7b321712879e *R/read_kupf.R
 ddcdc086135998c2e589cddebacc8893 *data/dataSEM.RData
-5af117fcaf8e78acc6b5e07e5997a2cc *data/dataSEM_old.RData
 04e6297a678e37840f4c78a45c688b31 *data/dataSHP.RData
 22f5bb56a7c8ea47c36ce52392e94dec *data/dataTestthat.RData
 78da449a91c1f9b5d3db000dff7d727d *man/AIC_HY.Rd
 be27faa5b21ac84526e4805bf294e4a2 *man/BIC_HY.Rd
+7829c3d28ad631067c6a46802a248d94 *man/DK_to_SWC.Rd
 6d62d9ba85d6cb8172a6b127bca22204 *man/Kcap.Rd
 9d08655b43e1a0f5c07c172cb3bb15bc *man/Kfilm.Rd
 18209ab03eeb1b2d4bb5e1b619309ef4 *man/Ku.Rd
@@ -40,9 +42,10 @@ ec0fc872d4199c8a1b59280e4556bbeb *man/SWC.Rd
 ecc96bc5b1e136b193cef018a304972b *man/Sat.Rd
 c55ffd3698dec123d50c44b1b67983c0 *man/Sat_old.Rd
 60da648ae97a94c95635dc3363e3877d *man/Scap.Rd
-ed65d3876dc2c791e359398af2681008 *man/dataSEM.Rd
-49242896f5edb769e2d5cd88c0edcae2 *man/dataSHP.Rd
-2b6d1db5c67415b1b1fb80056d34e10c *man/dataTestthat.Rd
+bf33c8dea6a8dc1313dd3aa46c02f7c6 *man/calcKS.Rd
+5bbc1e78f822abc7bc2f68b55cde96ad *man/dataSEM.Rd
+ab4ab1f9746c509c13cfef43400979aa *man/dataSHP.Rd
+4362e171a751e7a49233ceb20e5b335c *man/dataTestthat.Rd
 894f86772524a3b1a8901b0975f68d46 *man/fitSHP.Rd
 5561f1d31b6ff603f78c204533b9936d *man/plot.dataSEM.Rd
 548c825b03e306d898db1d271c6b2f4d *man/plot.fitSHP.Rd

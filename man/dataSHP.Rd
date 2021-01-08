@@ -4,7 +4,9 @@
 \name{dataSHP}
 \alias{dataSHP}
 \title{Soil hydraulic property data}
-\format{An object of class \code{data.frame} with 331 rows and 3 columns.}
+\format{
+An object of class \code{data.frame} with 331 rows and 3 columns.
+}
 \usage{
 data(dataSHP)
 }

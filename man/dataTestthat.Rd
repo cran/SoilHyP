@@ -4,7 +4,9 @@
 \name{dataTestthat}
 \alias{dataTestthat}
 \title{Dataset of soil hydraulic properties for testthat}
-\format{An object of class \code{list} of length 8.}
+\format{
+An object of class \code{list} of length 8.
+}
 \usage{
 data(dataSHP)
 }

@@ -4,7 +4,9 @@
 \name{dataSEM}
 \alias{dataSEM}
 \title{Evaporation experiment data}
-\format{An object of class \code{dataSEM} (inherits from \code{data.frame}) with 332 rows and 4 columns.}
+\format{
+An object of class \code{dataSEM} (inherits from \code{data.frame}) with 332 rows and 4 columns.
+}
 \usage{
 data(dataSEM)
 }

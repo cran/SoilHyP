@@ -12,7 +12,7 @@
 #' n [-]: van Genuchten shape parameter \cr
 #' h0 [L]: suction at water content of 0 (i.e. oven dryness) (h0 = 10^6.8 if missing, corresponding to oven dryness at 105°C (Schneider and Goss, 2012))\cr
 #' a: slope at the log scale (a = -1.5 if missing as suggested by Tokunaga (2009) and Peters (2013))}
-#' \item{}{additional for bimodal (modality == 'bi'): \cr
+#' \item{par.shp: additional parameter for bimodal (modality == 'bi')}{
 #' alfa2 [1/L]: van Genuchten parameter alfa for second pore space distribution \cr
 #' n2 [-]: van Genuchten parameter n for second pore space distribution}}
 #' @references Peters, A. (2013). Simple consistent models for water retention and hydraulic conductivity in the complete moisture range. Water Resour. Res. 49, 6765–6780. physics-a review. Vadose Zone J. http://dx.doi.org/10.2136/vzj2012.0163.

@@ -94,7 +94,7 @@ DK_to_SWC <- function(DK,
   #  Ash content: 1.4
   #  pH of water suspension: 3.95
   if(any(FUN =='pepin_5cm')) {
-    swc <- (0.03) + (0.0248*DK) - (-1.48*10^-4*DK^2)
+    swc <- (-0.03) + (0.0248*DK) - (1.48*10^-4*DK^2)
     obj$pepin_5cm <- data.table(DK = DK, SWC = swc, FUN = 'pepin_5cm')
   }
   # ToDo: Pepin 10, 20, 30, 40, 50 cm
@@ -102,7 +102,7 @@ DK_to_SWC <- function(DK,
   # Pooled with data of 6 depth (5, 10, 20, 30, 40, 50 cm)
   # forest bog, ground surface mostly covered by Sphagnum
   if(any(FUN =='pepin')) {
-    swc <- (0.085) + (0.0192*DK) - (-0.95*10^-4*DK^2)
+    swc <- (0.085) + (0.0192*DK) - (0.95*10^-4*DK^2)
     obj$pepin <- data.table(DK = DK, SWC = swc, FUN = 'pepin')
   }
   ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -247,14 +247,14 @@ if(any(FUN =='beckwith')){
 #  - dead sphagnum moss
 #  - Equation is taken from Nagare et al. 2011
 if(any(FUN =='yoshikawa_deadmoss')){
-  swc <- (-0.6286) + (0.4337*DK) + (-5.49*10^-2*DK^2) + (0.33*10^-2*DK^3)
+  swc <- (-0.6286) + (0.4337*sqrt(DK)) + (-5.49*10^-2*sqrt(DK)^2) + (0.33*10^-2*sqrt(DK)^3)
   obj$yoshikawa_deadmoss <- data.table(DK = DK, SWC = swc, FUN = 'yoshikawa_deadmoss')
 }
 ## Yoshikawa_livemoss:
 #  - live Sphagnum moss
 #  - equation is taken from Nagare et al. 2011
 if(any(FUN == 'yoshikawa_livemoss')){
-  swc <- (-0.16625) + (0.1108*DK) + (-0.21*10^-2*DK^2) + (4.33*10^-4*DK^3)
+  swc <- (-0.16625) + (0.1108*sqrt(DK)) + (-0.21*10^-2*sqrt(DK)^2) + (4.33*10^-4*sqrt(DK)^3)
   obj$yoshikawa_livemoss <- data.table(DK = DK, SWC = swc, FUN = 'yoshikawa_livemoss')
 }
 ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -276,7 +276,7 @@ if(any(FUN == 'nagare')) {
 ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #  Alder peat
 if(any(FUN =='oleszczuk')){
-  swc <- (-0.0276) + (0.2477*DK ) + (-3.15*10^-4*DK^2) + (2.00*10^-6*DK^3)
+  swc <- (-0.00276) + (0.02477*DK ) + (-3.15*10^-4*DK^2) + (0.02*10^-4*DK^3)
   obj$oleszczuk <- data.table(DK = DK, SWC = swc, FUN = 'oleszczuk')
 }
   ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -289,4 +289,5 @@ if(any(FUN =='oleszczuk')){
    obj$gs3 <- data.table(DK = DK, SWC = swc, FUN = 'gs3')
   }
   obj <- rbindlist(obj)
+  obj[]
 }

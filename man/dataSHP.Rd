@@ -14,9 +14,9 @@ data(dataSHP)
 Soil hydraulic property data including soil water contents (th), unsaturated hydraulic conductivities (Ku) and the corresponding suctions/pressure heads.
 }
 \details{
-\describe{\item{Columns:}{}
-\item{}{Ku: unsaturated hydraulic conductivity}
-\item{}{th: volumetric water content}
-\item{}{suc: suction}}
+\describe{\item{Columns:}{
+Ku: unsaturated hydraulic conductivity \cr
+th: volumetric water content \cr
+suc: suction}}
 }
 \keyword{datasets}

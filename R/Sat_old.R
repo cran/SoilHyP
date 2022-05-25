@@ -9,7 +9,7 @@
 #' alfa [1/L]: van Genuchten shape parameter \cr
 #' n [-]: van Genuchten shape parameter \cr
 #' m [-]: shape parameter (m = 1-(1/n) if missing)}
-#' \item{}{additional for bimodal (modality == 'bi'): \cr
+#' \item{par.shp (additional for bimodal (modality = 'bi')):}{
 #' w2 [-]: weigthing between pore space distribution \cr
 #' alfa2 [1/L]: van Genuchten parameter alfa for second pore space distribution \cr
 #' n2 [-]: van Genuchten parameter n for second pore space distribution}}

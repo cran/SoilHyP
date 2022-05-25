@@ -16,10 +16,9 @@
 #' \describe{\item{sd.tens:}{
 #' At the beginning of the experiment when gradients of the hydraulic head are small, hydraulic conductivities cannot be calculated. Following Peters and Durner (2008) hydraulic conductivities calculated from gradients smaller than (6*sd.tens)/(z2-z1) are set to NA.}}
 #' @return
-#' \describe{\item{data.frame}{}
-#' \item{}{Ki: unsaturated hydraulic conductivity [cm/day]}
-#' \item{}{th: water content (th) is returned if ths is provided as input}
-#' \item{}{suc: suction, either (1) weighted between arithmetic and geometric mean (default), (2) the arithmetic mean or (3) the geometric mean (see Peters 2015)}}
+#' \describe{\item{data.frame}{Ki: unsaturated hydraulic conductivity [cm/day] \cr
+#' th: water content (th) is returned if ths is provided as input \cr
+#' suc: suction, either (1) weighted between arithmetic and geometric mean (default), (2) the arithmetic mean or (3) the geometric mean (see Peters 2015)}}
 #' @examples
 #' # ----------------------------------------------------------------------------
 #' # Calculate hydraulic properties with the 'Simplified Evaporation Method' (SEM)

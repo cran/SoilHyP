@@ -45,10 +45,9 @@ SEM(
 \item{suc.out}{'weighted' (default), arithmetic ('ari') or geometric ('geo') mean of the tensiometer readings (see Peters (2015) for details)}
 }
 \value{
-\describe{\item{data.frame}{}
-\item{}{Ki: unsaturated hydraulic conductivity [cm/day]}
-\item{}{th: water content (th) is returned if ths is provided as input}
-\item{}{suc: suction, either (1) weighted between arithmetic and geometric mean (default), (2) the arithmetic mean or (3) the geometric mean (see Peters 2015)}}
+\describe{\item{data.frame}{Ki: unsaturated hydraulic conductivity [cm/day] \cr
+th: water content (th) is returned if ths is provided as input \cr
+suc: suction, either (1) weighted between arithmetic and geometric mean (default), (2) the arithmetic mean or (3) the geometric mean (see Peters 2015)}}
 }
 \description{
 Determines unsaturated hydraulic conductivity and water retention characteristics from laboratory evaporation experiments.

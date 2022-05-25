@@ -14,9 +14,10 @@ data(dataSEM)
 Example data of an Evaporation experiment
 }
 \details{
-\describe{\item{Columns:}{}
-\item{}{ts: timestamp [hour]}\item{}{weight: total weight of soil sample [g]}
-\item{}{tens.up: measurements of upper tensiometer [cm]}
-\item{}{tens.low: measurements of lower tensiometer [cm]}}
+\describe{\item{Columns:}{
+ts: timestamp [hour]\cr
+weight: total weight of soil sample [g] \cr
+tens.up: measurements of upper tensiometer [cm] \cr
+tens.low: measurements of lower tensiometer [cm]}}
 }
 \keyword{datasets}

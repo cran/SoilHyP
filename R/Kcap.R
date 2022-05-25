@@ -11,7 +11,7 @@
 #' m [-]: shape parameter (m = 1-(1/n) if missing) \cr
 #' tau [-]:  tortuosity and connectivity parameter (minimum -1 or -2 for the PDI model; for details see Peters (2014)) \cr
 #' h0 [L]: suction at water content of 0 (i.e. oven dryness) (h0 = 10^6.8 if missing, corresponding to oven dryness at 105°C (Schneider and Goss, 2012))}
-#' \item{}{additional for bimodal (modality == 'bi') \cr
+#' \item{par.shp: additional parameter for bimodal (modality == 'bi')}{
 #' w2 [-]: weigthing between pore space distribution \cr
 #' alfa2 [1/L]: van Genuchten parameter alfa for second pore space distribution \cr
 #' n2 [-]: van Genuchten parameter n for second pore space distribution}}

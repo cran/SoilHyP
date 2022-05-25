@@ -17,9 +17,9 @@
 #' alfa [1/L]: van Genuchten shape parameter \cr
 #' n [-]: van Genuchten shape parameter \cr
 #' m [-]: shape parameter (m = 1-(1/n) if missing)}
-#' \item{}{additional for 'PDI':\cr
+#' \item{par.shp (additional for 'PDI'):}{
 #' h0 [L]: suction at water content of 0 (i.e. oven dryness) (h0 = 10^6.8 if missing, corresponding to oven dryness at 105°C (Schneider and Goss, 2012))}
-#' \item{}{additional for bimodal (modality == 'bi'): \cr
+#' \item{par.shp (additional for bimodal (modality = 'bi')):}{
 #' w2 [-]: weigthing between pore space distributions \cr
 #' alfa2 [1/L]: van Genuchten parameter alfa for second pore space distribution \cr
 #' n2 [-]: van Genuchten parameter n for second pore space distribution \cr
@@ -83,6 +83,7 @@ SWC <- function(suc, par.shp = c(ths = 0.9, thr = 0, alfa = 0.02, n = 2),
   if(suc.negativ == FALSE) { suc <- suc * -1 }
   suc <- ifelse(suc > 0, 0, suc)
 
+  #print(par.shp)
 # check if all necessary parameter are given in input
   stopifnot(any(names(par.shp) == 'alfa'))
   stopifnot(any(names(par.shp) == 'thr'))

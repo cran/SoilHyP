@@ -1,8 +1,8 @@
 Package: SoilHyP
 Type: Package
 Title: Soil Hydraulic Properties
-Version: 0.1.5
-Date: 2021-01-08
+Version: 0.1.6
+Date: 2022-05-24
 Maintainer: Ullrich Dettmann <ullrich.dettmann@thuenen.de>
 Authors@R: c(person('Ullrich', 'Dettmann', email = 'ullrich.dettmann@thuenen.de',
                   role = c('aut', 'cre')), 
@@ -24,9 +24,9 @@ BugReports: https://bitbucket.org/UlliD/soilhyp/issues
 Encoding: UTF-8
 License: GPL (>= 2)
 Depends: R (>= 4.0.0)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.0
 NeedsCompilation: no
-Packaged: 2021-01-08 13:47:38 UTC; ullrich
+Packaged: 2022-05-24 15:30:28 UTC; ullrich
 Author: Ullrich Dettmann [aut, cre],
   Felix Andrews [ctb] (For the code copied from the hydromad::SCEoptim
     function (Version: 0.9-15) which is not on r-cran
@@ -37,4 +37,4 @@ Author: Ullrich Dettmann [aut, cre],
     reviesed in the hydromad::SCEoptim function.),
   Qingyun Duan [ctb] (For the MATLAB code adapted from Brecht Donkels.)
 Repository: CRAN
-Date/Publication: 2021-01-08 16:00:06 UTC
+Date/Publication: 2022-05-25 08:20:05 UTC

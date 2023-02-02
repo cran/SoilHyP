@@ -124,7 +124,7 @@ Ku <- function(suc, FUN.shp = 'vG', par.shp, modality = 'uni', suc.negativ = TRU
     stopifnot(any(names(par.shp) == 'n'))
 
     if (modality == 'uni'){
-      Se1<-(1+(par.shp$alfa*-suc)^par.shp$n)^(-(1-(1/par.shp$n)))
+      Se1<-(1+(par.shp$alfa*-suc)^par.shp$n)^(-par.shp$m)
       K <- par.shp$ks * Se1^par.shp$tau*((1-((1 - (Se1^(1/par.shp$m)))^par.shp$m))^2)
 
     }
@@ -135,10 +135,10 @@ Ku <- function(suc, FUN.shp = 'vG', par.shp, modality = 'uni', suc.negativ = TRU
       stopifnot(any(names(par.shp) == 'w2'))
 
       if(!any(names(par.shp) %in% 'm2')) { par.shp$m2 <- 1 - (1/par.shp$n2) }
-  Se1<-(1+(par.shp$alfa*-suc)^par.shp$n)^(-(1-(1/par.shp$n)))
-  Se2<-(1+(par.shp$alfa2*-suc)^par.shp$n2)^(-(1-(1/par.shp$n2)))
-  wSe1<- (1 - par.shp$w2) *(1 + (par.shp$alfa*-suc)^par.shp$n)^(-(1-(1/par.shp$n)))
-  wSe2<- par.shp$w2 *(1+(par.shp$alfa2*-suc)^par.shp$n2)^(-(1-(1/par.shp$n2)))
+  Se1<-(1+(par.shp$alfa*-suc)^par.shp$n)^(-par.shp$m)
+  Se2<-(1+(par.shp$alfa2*-suc)^par.shp$n2)^(-par.shp$m2)
+  wSe1<- (1 - par.shp$w2) *(1 + (par.shp$alfa*-suc)^par.shp$n)^(-par.shp$m)
+  wSe2<- par.shp$w2 *(1+(par.shp$alfa2*-suc)^par.shp$n2)^(-par.shp$m2)
   term1_oben<-(wSe1+wSe2)^par.shp$tau;
 
   w1 <- (1  -par.shp$w2)

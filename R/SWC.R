@@ -99,16 +99,17 @@ SWC <- function(suc, par.shp = c(ths = 0.9, thr = 0, alfa = 0.02, n = 2),
     stopifnot(any(names(par.shp) == 'n'))
     if(!any(names(par.shp) %in% 'm')) { par.shp$m <- 1 - (1/par.shp$n) }
     if (modality == 'uni') {
-      th <- par.shp$thr + (par.shp$ths - par.shp$thr) * (1 + (par.shp$alfa* -suc )^par.shp$n)^(-(1-(1/par.shp$n)))
+      th <- par.shp$thr + (par.shp$ths - par.shp$thr) * (1 + (par.shp$alfa* -suc )^par.shp$n)^(-par.shp$m)
     }
     if (modality == 'bi') {
+      if(!any(names(par.shp) %in% 'm2')) { par.shp$m2 <- 1 - (1/par.shp$n2)}
       # check if all necessary parameter are given in input
       stopifnot(any(names(par.shp) == 'alfa2'))
       stopifnot(any(names(par.shp) == 'n2'))
       stopifnot(any(names(par.shp) == 'w2'))
 
-      th <- (((1-par.shp$w2) *(1+(par.shp$alfa*-suc)^par.shp$n)^(-(1-(1/par.shp$n))))+ #wSe1
-               (par.shp$w2 *(1+(par.shp$alfa2*-suc)^par.shp$n2)^(-(1-(1/par.shp$n2)))))* #wSe2
+      th <- (((1-par.shp$w2) *(1+(par.shp$alfa*-suc)^par.shp$n)^(-par.shp$m))+ #wSe1
+               (par.shp$w2 *(1+(par.shp$alfa2*-suc)^par.shp$n2)^(-par.shp$m2)))* #wSe2
         (par.shp$ths - par.shp$thr) + par.shp$thr
     }
   }
